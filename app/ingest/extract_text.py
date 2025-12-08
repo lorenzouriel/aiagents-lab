@@ -111,6 +111,10 @@ TEXTO DO DOCUMENTO:
             .strip()
         )
 
+        # Remove invalid control characters that can break JSON parsing
+        # Keep only newline (\n), tab (\t), and carriage return (\r)
+        json_text = re.sub(r'[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f]', '', json_text)
+
         data = json.loads(json_text)
 
         metadados = data.get("metadados", {})
