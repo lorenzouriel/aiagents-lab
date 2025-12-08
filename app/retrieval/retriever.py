@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 @dataclass
 class SelfQueryConfig:
-    collection_name: str = "sumulas_jornada"
+    collection_name: str = "forensic_cases"
     k: int = 10
 
 def build_self_query_retriever(cfg: SelfQueryConfig) -> SelfQueryRetriever:
@@ -38,5 +38,4 @@ def search(
     """
     cfg = cfg or SelfQueryConfig()
     retriever = build_self_query_retriever(cfg)
-    # .invoke() retorna List[Document]
     return retriever.invoke(query)

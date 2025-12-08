@@ -12,11 +12,15 @@ from langchain_core.runnables import RunnableConfig
 
 from app.ingest.embed_qdrant import EmbeddingSelfQuery
 from app.retrieval.retriever import build_self_query_retriever, SelfQueryConfig
-from app.graph.prompt import SYSTEM_PROMPT_JURIDICO
+from app.graph.prompt import SYSTEM_PROMPT_FORENSE
+
 
 langfuse_handler = CallbackHandler()
 
+
+# =========================
 # Graph State Definitions
+# =========================
 class RAGState(TypedDict):
     question: str
     docs: List[Document]
@@ -25,53 +29,74 @@ class RAGState(TypedDict):
     generated_filter: str
     messages: Annotated[list, add_messages]
 
-# --- Function ---
+
+# =========================
+# Helper Functions
+# =========================
 def _format_filter_for_display(filter_obj: Any) -> str:
-    """Format the filter object into a human-readable string."""
+    """Format structured filter into a human-readable string."""
     if not filter_obj:
-        return "Non-applied filter."
+        return "Nenhum filtro aplicado."
+
     raw_str = str(filter_obj)
     raw_str = re.sub(r"Operation\(operator=<Operator\..*?>,\s*arguments=", "", raw_str)
+
     raw_str = re.sub(
         r"Comparator\(attribute='(.*?)',\s*operator=<Comparator\..*?>,\s*value='(.*?)'\)",
         r"\1 = '\2'",
         raw_str,
     )
+
     raw_str = raw_str.replace("[", "").replace("]", "").replace("),", " E ")
     raw_str = raw_str.strip("()")
-    return raw_str if raw_str else "Non-applied filter."
+
+    return raw_str if raw_str else "Nenhum filtro aplicado."
+
 
 def _format_docs(docs: List[Document]) -> str:
+    """Format forensic documents for LLM context."""
     parts = []
+
     for d in docs:
         md = d.metadata or {}
+
         head = (
-            f"[{md.get('pdf_name', '?')} | Súmula {md.get('num_sumula', '?')} | {md.get('chunk_type', 'chunk')}]"
-            f"\nstatus_atual: {md.get('status_atual', 'não informado')}"
-            f"\ndata_status: {md.get('data_status', 'não informado')}"
+            f"[Arquivo: {md.get('pdf_name', '?')} | "
+            f"Caso: {md.get('case_id', '?')} | "
+            f"Tipo: {md.get('document_type', '?')} | "
+            f"Seção: {md.get('section', '?')}]"
+            f"\nData do Documento: {md.get('document_date', 'não informado')}"
+            f"\nConfiança: {md.get('confidence_level', 'não informado')}"
         )
+
         parts.append(f"{head}\n\n{d.page_content}")
+
     return "\n\n---\n\n".join(parts)
 
 
-# --- Graph Nodes ---
+# =========================
+# Graph Nodes
+# =========================
 def retrieve(
     state: RAGState,
     config: RunnableConfig,
-    collection_name: str = "cases",
+    collection_name: str = "forensic_cases",
     k: int = 10,
 ) -> Dict[str, Any]:
-    """Node that executes SelfQueryRetriever and extract details of the generated query."""
-    print("Executing recovery node..")
+    """Executes SelfQueryRetriever and extracts generated query + filters."""
+    print("[INFO] - Executing retriever node...")
+
     cfg = SelfQueryConfig(collection_name=collection_name, k=k)
     retriever = build_self_query_retriever(cfg)
 
     structured_query: StructuredQuery = retriever.query_constructor.invoke(
         {"query": state["question"]}, config=config
     )
+
     docs = retriever.invoke(state["question"], config=config)
 
-    print(f"Query finished. Find {len(docs)} documents.")
+    print(f"[SUCCESS] - Retriever finished. {len(docs)} documents find.")
+
     return {
         "docs": docs,
         "generated_query": structured_query.query,
@@ -80,66 +105,102 @@ def retrieve(
 
 
 def generate_stream(state: RAGState, config: RunnableConfig) -> Dict[str, Any]:
-    """Node that generates final answers in a stream format."""
-    print("Executin generation node...")
+    """Generates the final forensic answer in streaming mode."""
+    print("[INFO] - Executing generation node...")
+
     QA_PROMPT = ChatPromptTemplate.from_messages(
         [
-            ("system", SYSTEM_PROMPT_JURIDICO),
+            ("system", SYSTEM_PROMPT_FORENSE),
             (
                 "human",
-                "Pergunta: {question}\n\nContexto (trechos):\n{context}\n\nResponda de forma direta. Ao final, liste fontes no formato: (Status: metadata.status_atual, Documento: metadata.num_sumula, Data da Publicação:  metadata.data_status).",
+                "Pergunta: {question}\n\n"
+                "Contexto (trechos periciais):\n{context}\n\n"
+                "Responda **exclusivamente com base nos documentos fornecidos**.",
             ),
         ]
     )
 
     embedder = EmbeddingSelfQuery()
     llm = embedder.llm
+
     context = _format_docs(state.get("docs", []))
+
     chain = QA_PROMPT | llm | StrOutputParser()
 
     answer_stream = chain.stream(
-        {"question": state["question"], "context": context},
+        {
+            "question": state["question"],
+            "context": context,
+        },
         config=config,
     )
+
     return {"answer": answer_stream}
 
-# --- Graph Builder ---
-def build_streaming_graph(collection_name: str = "cases", k: int = 5):
-    """Compile language graph for streaming RAG."""
+# =========================
+# Graph Builder
+# =========================
+def build_streaming_graph(
+    collection_name: str = "forensic_cases",
+    k: int = 5,
+):
+    """Compiles the LangGraph pipeline for forensic streaming RAG."""
     graph = StateGraph(RAGState)
+
     graph.add_node(
         "retrieve",
         lambda s, config: retrieve(
-            s, config=config, collection_name=collection_name, k=k
+            s,
+            config=config,
+            collection_name=collection_name,
+            k=k,
         ),
     )
+
     graph.add_node("generate", generate_stream)
+
     graph.set_entry_point("retrieve")
     graph.add_edge("retrieve", "generate")
     graph.add_edge("generate", END)
+
     return graph.compile()
 
-# Compiled Graph Instance to be used
+
+# =========================
+# Compiled Graph Instance
+# =========================
 COMPILED_GRAPH = build_streaming_graph()
 
-# --- Main function (to be used by the frontend) ---
+
+# =========================
+# Main Function (Frontend)
+# =========================
 def run_streaming_rag(question: str) -> Generator[Dict[str, Any], None, None]:
     """
-    Function that runs the RAG streaming graph and yields events for the frontend.
+    Runs the forensic RAG streaming graph and yields events for the frontend.
     """
 
     run_config = RunnableConfig(
         callbacks=[langfuse_handler],
-        run_name="Chat",
-        tags=["live-demo", "sumulas"],
-        metadata={"collection": "cases", "k": 5, "user": "Caio"},
+        run_name="Forensic-Chat",
+        tags=["cases", "forensic", "rag"],
+        metadata={
+            "collection": "forensic_cases",
+            "k": 5,
+            "user": "Lorenzo Uriel",
+        },
     )
 
-    initial_state: RAGState = {"question": question, "messages": []}
+    initial_state: RAGState = {
+        "question": question,
+        "messages": [],
+    }
+
     final_state = {}
 
     # Execute graph and stream events
     for event in COMPILED_GRAPH.stream(initial_state, config=run_config):
+
         if "retrieve" in event:
             output = event["retrieve"]
             yield {
@@ -152,24 +213,27 @@ def run_streaming_rag(question: str) -> Generator[Dict[str, Any], None, None]:
 
         if "generate" in event:
             answer_stream = event["generate"]["answer"]
-            # Transmit each token as it is generated
             for token in answer_stream:
                 yield {"type": "token", "data": token}
 
         if END in event:
             final_state = event[END]
 
-    # Format and yield sources information
+    # =========================
+    # Final Source Listing
+    # =========================
     docs = final_state.get("docs", [])
+
     sources = [
         {
+            "case_id": d.metadata.get("case_id"),
+            "document_type": d.metadata.get("document_type"),
             "pdf_name": d.metadata.get("pdf_name"),
-            "data_status": d.metadata.get("data_status"),
-            "data_status_ano": d.metadata.get("data_status_ano"),
-            "status_atual": d.metadata.get("status_atual"),
-            "num_sumula": d.metadata.get("num_sumula"),
-            "chunk_type": d.metadata.get("chunk_type"),
+            "document_date": d.metadata.get("document_date"),
+            "section": d.metadata.get("section"),
+            "confidence_level": d.metadata.get("confidence_level"),
         }
         for d in docs
     ]
+
     yield {"type": "sources", "data": sources}
