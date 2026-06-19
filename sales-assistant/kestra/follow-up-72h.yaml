@@ -1,0 +1,20 @@
+id: follow-up-72h
+namespace: sales-agent
+description: Re-engagement follow-up 72h after no response to the 24h follow-up
+
+inputs:
+  - id: phone_number
+    type: STRING
+    description: Lead's WhatsApp phone number
+
+tasks:
+  - id: send_reengagement
+    type: io.kestra.plugin.core.http.Request
+    uri: "http://app:8000/internal/followup"
+    method: POST
+    contentType: application/json
+    body: |
+      {
+        "phone_number": "{{ inputs.phone_number }}",
+        "message": "Olá! Percebi que você estava interessada em alguns dos nossos produtos. Temos novidades chegando essa semana — posso te mostrar? ✨"
+      }

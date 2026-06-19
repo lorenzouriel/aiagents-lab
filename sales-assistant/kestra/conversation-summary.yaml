@@ -1,0 +1,21 @@
+id: conversation-summary
+namespace: sales-agent
+description: Generate and persist a conversation summary for an inactive lead
+
+inputs:
+  - id: phone_number
+    type: STRING
+  - id: lead_id
+    type: STRING
+
+tasks:
+  - id: generate_summary
+    type: io.kestra.plugin.core.http.Request
+    uri: "http://app:8000/internal/summarize"
+    method: POST
+    contentType: application/json
+    body: |
+      {
+        "phone_number": "{{ inputs.phone_number }}",
+        "lead_id": "{{ inputs.lead_id }}"
+      }

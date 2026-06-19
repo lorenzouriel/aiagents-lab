@@ -1,0 +1,20 @@
+id: follow-up-7d
+namespace: sales-agent
+description: Cold lead recovery 7 days after last interaction
+
+inputs:
+  - id: phone_number
+    type: STRING
+    description: Lead's WhatsApp phone number
+
+tasks:
+  - id: send_recovery
+    type: io.kestra.plugin.core.http.Request
+    uri: "http://app:8000/internal/followup"
+    method: POST
+    contentType: application/json
+    body: |
+      {
+        "phone_number": "{{ inputs.phone_number }}",
+        "message": "Oi! Faz um tempinho que não nos falamos. 🌸 Sempre que quiser retomar a conversa ou descobrir novos produtos, é só me chamar. Estou aqui!"
+      }

@@ -1,0 +1,26 @@
+id: follow-up-24h
+namespace: sales-agent
+description: Warm follow-up 24h after a lead received a product recommendation
+
+inputs:
+  - id: phone_number
+    type: STRING
+    description: Lead's WhatsApp phone number
+
+tasks:
+  - id: send_warm_followup
+    type: io.kestra.plugin.core.http.Request
+    uri: "http://app:8000/internal/followup"
+    method: POST
+    contentType: application/json
+    body: |
+      {
+        "phone_number": "{{ inputs.phone_number }}",
+        "message": "Oi! 😊 Só passando para ver se você teve a chance de dar uma olhada nos produtos que separei para você. Posso te ajudar com mais alguma dúvida?"
+      }
+
+triggers:
+  - id: schedule_trigger
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 * * * *"
+    disabled: true

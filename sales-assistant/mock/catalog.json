@@ -1,0 +1,146 @@
+[
+  {
+    "id": "001",
+    "name": "Hidratante Facial Levíssimo — Pele Oleosa e Mista",
+    "description": "Hidratante oil-free com textura gel, não comedogênico. Formulado com ácido hialurônico e extrato de chá verde para controlar o brilho e manter a hidratação ao longo do dia. Ideal para peles oleosas, mistas e acneicas. Vegano, sem parabenos e sem sulfatos.",
+    "price": 89.90,
+    "category": "Hidratante Facial",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/hidratante-facial-levissimo"
+  },
+  {
+    "id": "002",
+    "name": "Hidratante Facial Nutritivo — Pele Seca e Normal",
+    "description": "Creme rico em manteiga de karité e óleo de rosa mosqueta para peles secas e normais. Proporciona hidratação profunda por até 24h, reduz a sensação de tensão e melhora a elasticidade da pele. Perfume suave de baunilha e lavanda. Sem parabenos.",
+    "price": 97.90,
+    "category": "Hidratante Facial",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/hidratante-facial-nutritivo"
+  },
+  {
+    "id": "003",
+    "name": "Sérum Vitamina C 20% — Antiox e Clareador",
+    "description": "Sérum concentrado com vitamina C pura a 20%, niacinamida e vitamina E. Ação antioxidante potente, uniformiza o tom da pele, reduz manchas e estimula a produção de colágeno. Textura leve de rápida absorção. Uso diário — manhã e noite. Resultado visível em 4 semanas.",
+    "price": 129.90,
+    "category": "Sérum",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/serum-vitamina-c-20"
+  },
+  {
+    "id": "004",
+    "name": "Sérum Ácido Hialurônico — Preenchimento e Firmeza",
+    "description": "Sérum com tripla concentração de ácido hialurônico (baixo, médio e alto peso molecular) para hidratação em múltiplas camadas da pele. Efeito preenchedor visível, reduz linhas finas e devolve a firmeza. Fórmula leve, sem silicone e sem óleo.",
+    "price": 119.90,
+    "category": "Sérum",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/serum-acido-hialuronico"
+  },
+  {
+    "id": "005",
+    "name": "Tônico Facial Refrescante — Poros e Equilíbrio",
+    "description": "Tônico sem álcool com água de rosas, hamamelis e pantenol. Fecha os poros, equilibra o pH da pele e prepara para a absorção do sérum e hidratante. Textura aquosa, refrescante. Ideal como segundo passo da rotina de skincare. Natural e vegano.",
+    "price": 59.90,
+    "category": "Tônico Facial",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/tonico-facial-refrescante"
+  },
+  {
+    "id": "006",
+    "name": "Máscara Facial de Argila Rosa — Pureza e Luminosidade",
+    "description": "Máscara de argila rosa com extrato de hibisco e vitamina C. Remove impurezas sem ressecar, ilumina o tom da pele e reduz poros dilatados. Para todos os tipos de pele, inclusive sensível. Uso 2x por semana. 100% natural, sem corantes artificiais.",
+    "price": 74.90,
+    "category": "Máscara Facial",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/mascara-argila-rosa"
+  },
+  {
+    "id": "007",
+    "name": "Máscara Facial de Carvão Ativado — Detox e Poros",
+    "description": "Máscara detox com carvão ativado, ácido salicílico e extrato de bambu. Adsorve impurezas, controla a oleosidade e desobstrui os poros profundamente. Indicada para pele oleosa e mista. Uso 1x por semana. Evitar em peles sensíveis ou com acne ativa.",
+    "price": 69.90,
+    "category": "Máscara Facial",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/mascara-carvao-ativado"
+  },
+  {
+    "id": "008",
+    "name": "Esfoliante Facial Suave — Renovação Celular",
+    "description": "Esfoliante enzimático com papaina (mamão), ácido mandélico e esferas de jojoba biodegradáveis. Remove células mortas de forma suave, não irrita e não resseca. Indicado para todos os tipos de pele. Uso 2-3x por semana. Deixa a pele visivelmente mais lisa e radiante.",
+    "price": 67.90,
+    "category": "Esfoliante",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/esfoliante-facial-suave"
+  },
+  {
+    "id": "009",
+    "name": "Óleo Facial de Rosa Mosqueta — Anti-aging e Cicatrizante",
+    "description": "Óleo puro de rosa mosqueta prensado a frio, rico em ômega 3, 6 e vitamina A. Reduz manchas, cicatrizes e linhas de expressão. Estimula a renovação celular e melhora a textura da pele. Uso noturno — 3 a 4 gotas após o sérum. Pele seca, normal e madura.",
+    "price": 84.90,
+    "category": "Óleo Facial",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/oleo-rosa-mosqueta"
+  },
+  {
+    "id": "010",
+    "name": "Protetor Solar Facial FPS 50 — Leve e Sem Resíduo Branco",
+    "description": "Protetor solar com filtros químicos e físicos, FPS 50 e PPD 32. Textura fluida, acabamento matte, sem resíduo branco. Enriquecido com niacinamida para uniformizar o tom. Resistente ao suor. Uso obrigatório como último passo da rotina matinal. Para todos os tipos de pele.",
+    "price": 89.90,
+    "category": "Protetor Solar",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/protetor-solar-fps50"
+  },
+  {
+    "id": "011",
+    "name": "Sabonete Artesanal de Lavanda e Calêndula — Pele Sensível",
+    "description": "Sabonete vegetal artesanal feito à mão com manteiga de karitê, óleo de calêndula e óleo essencial de lavanda. Limpa suavemente sem remover a barreira natural da pele. Indicado para pele sensível, bebês e durante a gravidez. Sem SLS, sem parabenos, sem corantes. Embalagem reciclável.",
+    "price": 34.90,
+    "category": "Sabonete Artesanal",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/sabonete-lavanda-calendula"
+  },
+  {
+    "id": "012",
+    "name": "Sabonete Artesanal de Carvão e Menta — Controle de Oleosidade",
+    "description": "Sabonete artesanal com carvão ativado, argila cinza e óleo essencial de hortelã. Controla a oleosidade, purifica os poros e oferece sensação refrescante. Ideal para rosto e corpo. Para pele oleosa, mista e com tendência a acne. Vegano, sem sulfatos.",
+    "price": 36.90,
+    "category": "Sabonete Artesanal",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/sabonete-carvao-menta"
+  },
+  {
+    "id": "013",
+    "name": "Hidratante Corporal de Manteiga de Cacau — Pele Seca",
+    "description": "Loção corporal com manteiga de cacau pura, óleo de amêndoas e vitamina E. Hidratação profunda e duradoura, ideal para pele muito seca, cotovelos, joelhos e calcanhares. Perfume suave de chocolate e baunilha. Absorção rápida, não oleoso. 200ml.",
+    "price": 54.90,
+    "category": "Hidratante Corporal",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/hidratante-corporal-cacau"
+  },
+  {
+    "id": "014",
+    "name": "Esfoliante Corporal de Açúcar e Coco — Renovação e Brilho",
+    "description": "Esfoliante corporal artesanal com açúcar mascavo, óleo de coco virgem e extrato de coco. Remove células mortas, hidrata e deixa a pele incrivelmente macia e com brilho natural. Pode ser usado em todo o corpo, incluindo os lábios. Aroma tropical irresistível. 200g.",
+    "price": 49.90,
+    "category": "Esfoliante",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/esfoliante-acucar-coco"
+  },
+  {
+    "id": "015",
+    "name": "Kit Rotina Básica Pele Oleosa",
+    "description": "Kit completo para iniciar a rotina de skincare para pele oleosa: Tônico Facial Refrescante (60ml) + Hidratante Facial Levíssimo (30ml) + Protetor Solar FPS 50 (30ml). Economia de R$ 25 em relação à compra individual. Ideal como presente ou para quem quer começar a cuidar da pele.",
+    "price": 134.90,
+    "category": "Kit",
+    "in_stock": true,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/kit-rotina-pele-oleosa"
+  },
+  {
+    "id": "016",
+    "name": "Kit Presente Skincare Natural",
+    "description": "Kit presente com embalagem especial: Sabonete Artesanal de Lavanda (90g) + Hidratante Facial Nutritivo (30ml) + Óleo de Rosa Mosqueta (10ml). Embalado em caixa kraft reciclável com laço de cetim. Perfeito para presentear no Dia das Mães, aniversário ou Natal. Disponível com mensagem personalizada.",
+    "price": 159.90,
+    "category": "Kit",
+    "in_stock": false,
+    "purchase_url": "https://vaib2.lojavirtualnuvem.com.br/produtos/kit-presente-skincare"
+  }
+]

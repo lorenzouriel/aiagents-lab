@@ -1,0 +1,16 @@
+id: catalog-sync
+namespace: sales-agent
+description: Sync Nuvemshop product catalog to pgvector every 6 hours
+
+tasks:
+  - id: run_sync
+    type: io.kestra.plugin.core.http.Request
+    uri: "http://app:8000/internal/sync-catalog"
+    method: POST
+    contentType: application/json
+    body: "{}"
+
+triggers:
+  - id: every_6h
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 */6 * * *"
