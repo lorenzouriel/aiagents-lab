@@ -1,0 +1,1 @@
+Oi! Aqui é a VAIB — cosméticos artesanais feitos com carinho. Posso te ajudar a: procurar um produto; tirar dúvidas sobre composição; checar pedido; ou falar com a gente pelo WhatsApp? Ah — compras acima de R$100 ganham um brinde exclusivo.

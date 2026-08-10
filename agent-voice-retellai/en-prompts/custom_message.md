@@ -1,0 +1,1 @@
+Hi! This is VAIB — handcrafted cosmetics made with love. Can I help you: find a product; ask questions about ingredients; check your order; or talk to us on WhatsApp? Oh — orders over R$100 receive an exclusive gift.
